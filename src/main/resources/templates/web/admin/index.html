@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/beans">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<h1>欢迎进入后台管理页面, <span id="username"></span>！</h1>
+<br>
+<a href="javascript:logout()">退出登录</a>
+</body>
+<script src="/public/base/js/jquery-3.4.0.min.js"></script>
+<script src="/public/base/js/common.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: "/admin/api/v1/user/username",
+            method: 'GET',
+            success: function (result) {
+                $("#username").html(result);
+            }
+        });
+    });
+
+    function logout() {
+        $.ajax({
+            url: "/admin/api/v1/logout",
+            method: 'POST',
+            success: function (result) {
+                location.href = result['redirect'];
+            }
+        });
+    }
+</script>
+</html>

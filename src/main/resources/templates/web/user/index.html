@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<h1>欢迎进入用户页面, <span id="username"></span>！</h1>
+<a sec:authorize="hasAuthority('USER_LIST')" th:href="@{/api/v1/user}">点击进入用户列表页面</a>
+<br>
+<a href="javascript:logout()">退出登录</a>
+</body>
+<script src="/public/base/js/jquery-3.4.0.min.js"></script>
+<script src="/public/base/js/common.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $.ajax({
+            url: "/api/v1/user/username",
+            method: 'GET',
+            success: function (result) {
+                $("#username").html(result);
+            }
+        });
+    });
+
+    function logout() {
+        $.ajax({
+            url: "/api/v1/logout",
+            method: 'POST',
+            success: function (result) {
+                location.href = result['redirect'];
+            }
+        });
+    }
+</script>
+</html>

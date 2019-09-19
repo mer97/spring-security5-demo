@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/beans">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<form>
+    用户名：<input name="username" id="username" type="text" placeholder="username">
+    <br>
+    密  码：<input name="password" id="password" type="password" placeholder="password">
+    <br>
+    <input type="button" value="登录" onclick="login()">
+    <br>
+    <br>
+    <br>
+    <span>测试用户名=admin，密码=123456</span><br>
+</form>
+</body>
+<script src="/public/base/js/jquery-3.4.0.min.js"></script>
+<script src="/public/base/js/common.js"></script>
+<script src="/public/base/js/md5.js"></script>
+<script type="text/javascript">
+
+    function login() {
+        var username = $('#username').val();
+        var password = $('#password').val();
+        $.ajax({
+            url: '/admin/api/v1/login',
+            method: 'POST',
+            data: {
+                username: username,
+                password: hex_md5(password)
+            },
+            success: function (result) {
+                //登录检验成功后跳转，这里我配置的跳转页面是/admin。
+                location.href = result['redirect'];
+            }
+        });
+    }
+
+</script>
+</html>
