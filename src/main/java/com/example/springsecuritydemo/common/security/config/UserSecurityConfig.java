@@ -219,7 +219,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 自定义注销成功处理器。
+     * 自定义AccessDeniedHandler来处理Ajax请求。
      * @return
      */
     private AccessDeniedHandler handleAccessDeniedForUser() {
