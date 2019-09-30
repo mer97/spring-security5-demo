@@ -18,7 +18,7 @@ public class AdminRestController {
     @GetMapping("/username")
     @PreAuthorize("hasAuthority('ADMIN')")
     /**
-     * 获取当前登录的用户名
+     * 获取当前登录的用户名onAuthenticationFailure
      * 权限验证：
      *      当请求/api/v1/admin/username接口时，判断该用户是否拥有“ADMIN”权限。
      */

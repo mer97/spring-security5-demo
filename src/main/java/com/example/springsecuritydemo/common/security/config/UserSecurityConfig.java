@@ -41,13 +41,12 @@ import java.util.*;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static Map<String, String> USER_MAP;
+    private static Map<String, String> USER_MAP = new HashMap();
 
     /**
      * 模拟数据库用户名和密码(使用md5加密)
      */
     static {
-        USER_MAP = new HashMap();
         USER_MAP.put("zhangsan", DigestUtils.md5Hex("123456"));
         USER_MAP.put("lisi", DigestUtils.md5Hex("123456"));
     }
@@ -165,8 +164,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/api/v1/logout")
                 .logoutSuccessHandler(ajaxLogoutSuccessHandler())
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .and();
+                .deleteCookies("JSESSIONID");
     }
 
     /**

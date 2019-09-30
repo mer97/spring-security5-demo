@@ -134,8 +134,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/admin/api/v1/logout")
                 .logoutSuccessHandler(ajaxLogoutSuccessHandler())
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .and();
+                .deleteCookies("JSESSIONID");
     }
 
     /**
