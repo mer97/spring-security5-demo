@@ -43,7 +43,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static Map<String, String> USER_MAP = new HashMap();
 
-    /**
+    /*
      * 模拟数据库用户名和密码(使用md5加密)
      */
     static {
@@ -168,7 +168,8 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 判断是否ajax请求，是ajax请求则返回json，否则跳转失败页面。
+     * 自定义 “未登入系统，直接请求资源” 处理器。
+     * 判断是否ajax请求，是ajax请求则返回json，否则跳转至登录页面。
      * @return
      */
     private AuthenticationEntryPoint unauthorizedEntryPoint() {
@@ -202,7 +203,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 自定义登录成功处理器。
+     * 自定义退出成功处理器。
      * @return
      */
     private LogoutSuccessHandler ajaxLogoutSuccessHandler() {
@@ -217,7 +218,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 自定义AccessDeniedHandler来处理Ajax请求。
+     * 自定义 “无权请求的资源” 处理器。
      * @return
      */
     private AccessDeniedHandler handleAccessDeniedForUser() {
